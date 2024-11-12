@@ -27,7 +27,7 @@ void reduction(int* input, int*out){//sum reduction
 		__syncthreads();
 		if(t%stride ==0){
 			partial[2*t]+= partial[2*t+stride];
-			out[0]+= partial[2*t];
+			out[0]= partial[2*t];
 		}
 	}	
 }
@@ -43,28 +43,32 @@ int main (){
 	for (int i = 0; i < SIZE; i++) {
 		values[i] = rand()%(N-0+1);
 	}
+	//to print array
+	//for (int i = 0; i < SIZE; i++) {
+		//printf("%d ", values[i]);
+		//}
 
-	for (int i = 0; i < SIZE; i++) {
-		printf("%d ", values[i]);
-		}
-
-	printf("\n");
+	//printf("\n");
+	
 	//cpu sum
 	int s = 0;
 	for (int i = 0; i < SIZE; i++) {
 		s += values[i];
 	}
-	//printf("%d\n ", s);
-	
+	printf("%d\n ", s);
 	printf("\n");
+	
 	//gpu sum
 	cudaMemcpy(dv, values, N*sizeof(int), cudaMemcpyHostToDevice); 
-	
+	double t0 = get_clock();
 	reduction<<<1, BLOCK_SIZE>>>(dv,ds);
 	cudaDeviceSynchronize();
+	double t1 = get_clock();
 	
 	cudaMemcpy(sum, ds, 1*sizeof(int), cudaMemcpyDeviceToHost);
 	//need kernel here
-	//printf("%d\n", sum[0]);	
+	printf("%d\n", sum[0]);	
 
+	printf("\n");
+	printf("Time: %f ns\n", (1000000000.0*(t1-t0)));
 }
