@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 #define BLOCK_SIZE 128
-#define SIZE 10
-#define BUCKETS 2
+#define SIZE 2500
+#define BUCKETS 5
 
 double get_clock() {
   struct timeval tv; int ok;

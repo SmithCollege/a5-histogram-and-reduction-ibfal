@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#define SIZE 10
-#define BUCKETS 5
+#define SIZE 2500
+#define BUCKETS 4
 
 
 double get_clock() {
