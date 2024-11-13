@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#define SIZE 10
+#define SIZE 1000
 
 double get_clock() {
   struct timeval tv; int ok;
@@ -47,11 +47,10 @@ int max(int * arr){
 	return m;
 }
 int main (){
-	int N = 15;
 	int* values = malloc(sizeof(int) * SIZE);
 
 	for (int i = 0; i < SIZE; i++) {
-		values[i] = rand()%(N-0+1);
+		values[i] = rand()%(10-0+1);//this ensures boundaries for how high the numbers can be generated.
 	}
 
 	for (int i = 0; i < SIZE; i++) {
@@ -60,12 +59,30 @@ int main (){
 
 	printf("\n");
 	//sum
-	printf("%d\n ", sum(values));	
+	double t0 = get_clock();
+	printf("%d\n ", sum(values));
+	double t1 = get_clock();
+	printf("Time sum: %f ns\n", (1000000000.0*(t1-t0)));
+	printf("\n");
+		
 	//product
+	t0 = get_clock();
 	printf("%d\n ", product(values));
+	t1 = get_clock();
+	printf("Time product: %f ns\n", (1000000000.0*(t1-t0)));
+	printf("\n");
+	
 	//min
+	t0 = get_clock();
 	printf("%d\n ", min(values));
+	t1 = get_clock();
+	printf("Time min: %f ns\n", (1000000000.0*(t1-t0)));
+	printf("\n");
+	
 	//max
+	t0 = get_clock();
 	printf("%d\n ", max(values));
+	t1 = get_clock();
+	printf("Time max: %f ns\n", (1000000000.0*(t1-t0)));
 			  
 }

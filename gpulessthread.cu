@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BLOCK_SIZE 32
-
+#define BLOCK_SIZE 128
+#define SIZE 25000
 
 double get_clock() {
   struct timeval tv; int ok;
@@ -34,33 +34,18 @@ void reduction(int* input, int*out){//sum reduction
 } 
 
 int main (){
-	int N = 15;
 	int* values, *dv, *sum, *ds;
-	values = (int*)malloc(N*sizeof(int));
+	values = (int*)malloc(SIZE*sizeof(int));
 	sum = (int*)malloc(1*sizeof(int));
-	cudaMallocManaged(&dv, N*sizeof(int));
+	cudaMallocManaged(&dv, SIZE*sizeof(int));
 	cudaMallocManaged(&ds, 1*sizeof(int));
 
-	for (int i = 0; i < N; i++) {
-		values[i] = rand()%(N-0+1);
+	for (int i = 0; i < SIZE; i++) {
+		values[i] = rand()%(10-0+1);
 	}
-	//to print array
-	for (int i = 0; i < N; i++) {
-		printf("%d ", values[i]);
-		}
-
-	printf("\n");
-	
-	//cpu sum
-	int s = 0;
-	for (int i = 0; i < N; i++) {
-		s += values[i];
-	}
-	printf("%d\n ", s);
-	printf("\n");
 	
 	//gpu sum
-	cudaMemcpy(dv, values, N*sizeof(int), cudaMemcpyHostToDevice); 
+	cudaMemcpy(dv, values, SIZE*sizeof(int), cudaMemcpyHostToDevice); 
 	double t0 = get_clock();
 	reduction<<<1, BLOCK_SIZE>>>(dv,ds);
 	cudaDeviceSynchronize();
