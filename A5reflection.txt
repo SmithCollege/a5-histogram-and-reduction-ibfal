@@ -1,0 +1,7 @@
+What went well with this assignment?
+    - i felt like this was a really good assignment for me! I did understand the reductions and the histograms prior to learning it so it made it really fun to see how to impliment all of it on the cpu and the gpu. reductions were really fun and i liked setting them up. I would be interested in looking at the other reduction methods not just sums.
+What was difficult?
+    - i had some difficulties with the bins on the cpu histograms being customizable, but i figured it out. I figured it out though by changing how the bins were divided after having used the gpu program we made. 
+How would you approach differently?
+    - I would probably have started this earlier honestly. Just ran out of time. 
+Anything else you want me to know?
