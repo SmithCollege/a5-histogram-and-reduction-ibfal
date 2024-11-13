@@ -48,13 +48,18 @@ int main(){
 	dim3 grid((SIZE+block.x-1)/block.x);
 
 	cudaDeviceSynchronize();
+	double t0 = get_clock();
 	hist<<<grid,block>>>(dArray,SIZE,dHist,BUCKETS);
 	cudaDeviceSynchronize();
+	double t1 = get_clock();
 
 	cudaMemcpy(histo,dHist,BUCKETS *sizeof(int),cudaMemcpyDeviceToHost);
 
 	for (int i=0;i<BUCKETS; i++){
 		printf(" %d |", histo[i]);
 	}
+
+	printf("\n");
+	printf("Time: %f ns\n", (1000000000.0*(t1-t0)));
 	printf("\n");
 }
